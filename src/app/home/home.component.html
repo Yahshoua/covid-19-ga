@@ -1,0 +1,175 @@
+<section id="sec1">
+    <p style="margin-left: 7px;">
+        COVID 19 DONNÉES DE SÉRIES CHRONOLOGIQUES
+    </p>
+    <div class="ui cards">
+        <div class="card">
+            <div class="content">
+                <div class="header">CAS CONFIRME</div>
+                <div class="meta">
+                    <h3> {{data?.total_cases}} </h3>
+                </div>
+                <div class="label"> {{maj}} </div>
+                <div class="bar" id="bar1">
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <div class="header">MORTS</div>
+                <div class="meta">
+                    <h3>{{data?.total_deaths}}</h3>
+                </div>
+                <div class="label"> {{maj}}</div>
+                <div class="bar" id="bar2">
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <div class="header">RETABLIS</div>
+                <div class="meta">
+                    <h3>{{data?.total_recovered}}</h3>
+                </div>
+                <div class="label"> {{maj}} </div>
+                <div class="bar" id="bar3">
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <div class="header">CAS ACTIFS</div>
+                <div class="meta">
+                    <h3>{{data?.active_cases}}</h3>
+                </div>
+                <div class="label"> {{maj}} </div>
+                <div class="bar" id="bar4">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="content">
+    <div class="ui grid">
+        <div class="eight wide column col-circle">
+            <div class="col-graph-circle">
+                <canvas id="circle" width="200" height="100"></canvas>
+                <div class="col-info">
+                    <div>
+                        cas actifs <span style="background: rgb(156, 39, 176)"> {{percent.actif}}% </span>
+                    </div>
+                    <div>
+                        Morts <span style="background: rgb(255, 0, 54)">{{percent.morts}}%</span>
+                    </div>
+                    <div>
+                        Retablis <span style="background: rgba(255, 206, 86)">{{percent.retablis}}%</span>
+                    </div>
+                </div>
+                <div class="col-btn">
+                    <button class="but-custom">
+                        Description
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="eight wide column col-percent">
+            <div class="col-rate-mort" style="position: relative;">
+                <div style="display: flex;height: 100%;position: relative">
+                    <div style="margin: auto;display: grid">
+                        <h3>DONNÉES DE TAUX DE MORT AU GABON</h3>
+                        <h2> {{percent.morts}} %</h2>
+                        <span style="text-align: center;">Dernières mise-à-jour {{maj}}</span>
+
+                    </div>
+                </div>
+                <div class="col-btns">
+                    <button class="but-custom">
+                        Description
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="12 wide column col-evolution" style="padding-top: 5px">
+            <div>
+                <div style="display: flex;padding: 0;">
+                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;flex: 1">Dernière mise-à-jour 21.02.2020</span>
+                    <div class="col-btns" style="position: initial;padding: 0">
+                        <button class="but-custom">
+                            Description
+                        </button>
+                    </div>
+                </div>
+
+                <canvas id="evolution" width="400" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="12 wide column col-evolution" style="padding-top: 5px">
+            <div>
+                <div style="display: flex;padding: 0;">
+                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;">Nouveaux morts les derniers 28 jours</span>
+                </div>
+
+                <canvas id="morts" width="500" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="ui grid" style="padding-top: 5px;margin-bottom:15px">
+        <div class="six wide column">
+            <div class="col-stat">
+                <div class="col-head">
+                    <h3>COVID 19: GABON: cas journalier </h3>
+                    <span>6 derniers jours</span>
+                </div>
+                <div class="ui relaxed divided list">
+                    <div class="item">
+                        <div class="content">
+                            <div class="header">
+                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
+                            </div>
+                            <div class="description">Updated 10 mins ago</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="header">
+                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
+                            </div>
+                            <div class="description">Updated 10 mins ago</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="header">
+                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
+                            </div>
+                            <div class="description">Updated 10 mins ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide column">
+            <div class="col-stat">
+                <div class="col-head">
+                    <div style="display: flex;">
+                        <h3 style="flex: 1;">COVID 19: GABON: Nouveaux cas </h3>
+                        <div class="col-btns" style="position: initial;padding: 0;margin-right: 10px;">
+                            <button class="but-custom">
+                            Description
+                        </button>
+                        </div>
+                    </div>
+
+                    <span>28 derniers jours</span>
+                </div>
+                <div>
+                    <canvas id="jr-evolution" width="300" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

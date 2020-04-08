@@ -1,0 +1,10 @@
+mat-toolbar {
+    background: rgb(25, 9, 255) !important;
+}
+
+footer {
+    border-top: 1px solid #80808026;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
