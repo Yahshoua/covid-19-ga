@@ -1,5 +1,5 @@
 <section id="sec1">
-    <p style="margin-left: 7px;">
+    <p class="text-cov" style="margin-left: 7px;">
         COVID 19 DONNÉES DE SÉRIES CHRONOLOGIQUES
     </p>
     <div class="ui cards">
@@ -53,7 +53,10 @@
     <div class="ui grid">
         <div class="eight wide column col-circle">
             <div class="col-graph-circle">
-                <canvas id="circle" width="200" height="100"></canvas>
+                <div class="chart-container" style="position: relative">
+                    <canvas id="circle"></canvas>
+                </div>
+
                 <div class="col-info">
                     <div>
                         cas actifs <span style="background: rgb(156, 39, 176)"> {{percent.actif}}% </span>
@@ -76,7 +79,7 @@
             <div class="col-rate-mort" style="position: relative;">
                 <div style="display: flex;height: 100%;position: relative">
                     <div style="margin: auto;display: grid">
-                        <h3>DONNÉES DE TAUX DE MORT AU GABON</h3>
+                        <h3 style="text-align: center;">DONNÉES DE TAUX DE MORTALITE AU GABON</h3>
                         <h2> {{percent.morts}} %</h2>
                         <span style="text-align: center;">Dernières mise-à-jour {{maj}}</span>
 
@@ -94,15 +97,18 @@
         <div class="12 wide column col-evolution" style="padding-top: 5px">
             <div>
                 <div style="display: flex;padding: 0;">
-                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;flex: 1">Dernière mise-à-jour 21.02.2020</span>
+                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;flex: 1">Dernière mise-à-jour le {{maj}}</span>
                     <div class="col-btns" style="position: initial;padding: 0">
                         <button class="but-custom">
                             Description
                         </button>
                     </div>
                 </div>
+                <div class="chart-containers">
+                    <canvas id="evolution" width="900px" height="200px"></canvas>
+                    <canvas id="chart" style="display: none;"></canvas>
+                </div>
 
-                <canvas id="evolution" width="400" height="100"></canvas>
             </div>
         </div>
     </div>
@@ -112,8 +118,10 @@
                 <div style="display: flex;padding: 0;">
                     <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;">Nouveaux morts les derniers 28 jours</span>
                 </div>
-
-                <canvas id="morts" width="500" height="100"></canvas>
+                <div class="chart-container" style="position: relative">
+                    <canvas class="mort1" id="morts" width="900px" height="200px"></canvas>
+                    <canvas class="mort2" id="morts2" width="900px" style="display: none;"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -122,31 +130,18 @@
             <div class="col-stat">
                 <div class="col-head">
                     <h3>COVID 19: GABON: cas journalier </h3>
-                    <span>6 derniers jours</span>
+                    <span> 6 derniers jours </span>
                 </div>
                 <div class="ui relaxed divided list">
-                    <div class="item">
+                    <div class="item" *ngFor="let last of last6day">
                         <div class="content">
-                            <div class="header">
-                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
+                            <div class="header" *ngIf="last?.pending == true">
+                                <span style="color: #1dca1d;">Données du <b>{{day}}</b> en attente...</span>
                             </div>
-                            <div class="description">Updated 10 mins ago</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="header">
-                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
+                            <div class="header" *ngIf="last?.pending !== true">
+                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; {{last.date}}
                             </div>
-                            <div class="description">Updated 10 mins ago</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="header">
-                                <i class="fas fa-chart-bar" style="color: #FF9800"></i> &nbsp; 04/06/2020
-                            </div>
-                            <div class="description">Updated 10 mins ago</div>
+                            <div class="description" *ngIf="last?.pending !== true">Nouveaux cas <span>{{last.confirmed}}</span>&nbsp; <span style="color: red">Morts {{last.deaths}} </span> </div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +162,9 @@
                     <span>28 derniers jours</span>
                 </div>
                 <div>
-                    <canvas id="jr-evolution" width="300" height="100"></canvas>
+                    <div class="chart-container" style="position: relative;width:300;height:100 ">
+                        <canvas id="jr-evolution2"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

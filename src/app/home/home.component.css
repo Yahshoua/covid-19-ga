@@ -165,3 +165,76 @@ h3 {
     padding-bottom: 10px;
     border-bottom: 1px solid #80808038;
 }
+
+#chart {
+    display: none;
+}
+
+@media(max-width: 631px) {
+    .card {
+        width: 100% !important;
+    }
+    .eight.wide.column.col-circle {
+        width: 100% !important;
+    }
+    .eight.wide.column.col-percent {
+        width: 100% !important;
+    }
+    .col-evolution>div>div {
+        display: block !important;
+    }
+    .col-evolution>div>div>h2 {
+        font-size: 12px !important;
+    }
+    .col-evolution>div>div>span {
+        line-height: 0 !important;
+        padding-left: 0 !important;
+    }
+    .col-evolution .col-btns {
+        display: none !important;
+    }
+}
+
+@media(max-width: 875px) {
+    #chart {
+        display: block !important;
+    }
+    .mort1 {
+        display: none !important;
+    }
+    .mort2 {
+        display: block !important;
+    }
+    #evolution {
+        display: none !important;
+    }
+}
+
+@media(max-width: 825px) {
+    .six.wide.column,
+    .ten.wide.column {
+        width: 100% !important;
+    }
+    .text-cov {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+}
+
+@media(max-width: 1090px) {
+    #jr-evolution2 {
+        display: block !important;
+    }
+    #jr-evolution {
+        display: none !important;
+    }
+}
+
+.chart-containers {
+    position: relative;
+    margin: auto;
+}
+
+#chart {
+    border: 1px dotted red;
+}

@@ -18,3 +18,9 @@ body {
     overflow-y: hidden !important;
     height: 100% !important;
 }
+
+@media(max-width: 825px) {
+    .mat-tab-label-container {
+        display: none !important;
+    }
+}

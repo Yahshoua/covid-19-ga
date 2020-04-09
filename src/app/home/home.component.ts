@@ -9,8 +9,10 @@ declare var $, moment
 export class HomeComponent implements OnInit {
  data
  maj
+ day = moment().format('DD MMMM Y')
  total: any;
  Gabon
+ last6day
  percent = {
      actif: undefined,
      morts: undefined,
@@ -30,7 +32,7 @@ export class HomeComponent implements OnInit {
         this.data = res.data.rows[0]
         var date = res.data.last_update.replace(', UTC','')
         var mydate =  moment(date).format("DD MMMM Y")
-        console.log('data => ', res, 'date=> ', date,'moment => ', mydate, 'dateP ', moment(date).format('DD MM Y'))
+       // console.log('data => ', res, 'date=> ', date,'moment => ', mydate, 'dateP ', moment(date).format('DD MM Y'))
         fetch(api1, {method: 'GET', redirect: 'follow'})
         .then(response => response.json())
         .then(data=> {
@@ -39,24 +41,44 @@ export class HomeComponent implements OnInit {
                // e.actif = e.confirmed - (e.deaths + e.recovered)
             }) 
             var tabGabon = data["Gabon"]
-            tabGabon.push({
+            var day = moment().format('DD-MM-Y')
+            var addObj = {
                 date: moment(date).format('DD-MM-Y'),
                 confirmed: parseInt(this.data.active_cases),
                 recovered: parseInt(this.data.total_recovered),
                 deaths: parseInt(this.data.total_deaths),
+                pending: false
                 //actif: parseInt(this.data.active_cases)
-            })
+            }
+            if(day !== moment(date).format('DD-MM-Y')) {
+                addObj.pending = true
+            }
+            tabGabon.push(addObj)
             this.Gabon = tabGabon
-            var dates = this.Gabon.map(e=> {
-                return e.date
-            })
-            console.log('Gabon ', this.Gabon)
+            var e = this.Gabon.length - 6
+            var k = this.Gabon.filter((k, j)=> {
+                    return j >= e
+                })
+                k.forEach((element, i) => {
+                    element.id = i
+                });
+            this.last6day = k.sort((a, b)=> {
+                if (a.id < b.id ) {
+                return 1;
+              }
+              if (a.id > b.id ) {
+                return -1;
+              }
+              return 0;
+          })
+          //  console.log('last6 ', this.last6day)
             this.ready()
+            $('.fakeLoader').hide()
         })
     
     this.maj = mydate
     this.total =parseInt(this.data.active_cases) + parseInt(this.data.total_deaths) + parseInt(this.data.total_recovered)
-    console.log('total=> ', this.total, ' actifs ', this.data.active_cases)
+    //console.log('total=> ', this.total, ' actifs ', this.data.active_cases)
     this.percent = {
     actif: Math.floor(parseInt(this.data.active_cases)*100/this.total),
      morts: Math.floor(parseInt(this.data.total_deaths)*100/this.total),
@@ -84,10 +106,14 @@ export class HomeComponent implements OnInit {
       ready() {
         var ctx = document.getElementById('circle')
         var ctx2 = document.getElementById('evolution')
+        Chart.defaults.global.animationEasing = "easeOutBounce";
         var ctx3 = document.getElementById('morts')
-        var ctx4 = document.getElementById('jr-evolution')
+        //var ctx4 = document.getElementById('jr-evolution')
         new Chart(ctx, {
           type: 'pie',
+          options: {
+            responsive: true
+          },
           data: {
               labels: ['Cas actifs', 'Morts', 'Retablis'],
               datasets: [{
@@ -107,10 +133,12 @@ export class HomeComponent implements OnInit {
               }]
           }
       });
+     // console.log('Gabon ', this.Gabon)
+      var lines = this.Gabon.map(e=> {
+        return e.date
+    })
       var lineChartData = {
-        labels: this.Gabon.map(e=> {
-            return e.date
-        }),
+        labels: lines,
         datasets: [
             {
                 label: 'Cas confirmés',
@@ -156,20 +184,29 @@ export class HomeComponent implements OnInit {
         }
     ]
     };
-      new Chart(ctx2, {
-        type: 'line',
+      new Chart.Line(ctx2, {
         data: lineChartData,
         options: {
-            scales: {
-                yAxes: [{
-                    stacked: false
-                }]
+            responsive: true,
+            maintainAspectRatio: true,
+            onResize: (e, dim)=> {
+                //console.log('e ', e ,'dim  ', dim)
+               //e.height = '200'
+              
             }
-        }
+          }
     });
+    var tab = []
+    for(var i=1;i< 29;i++) {
+        tab.push(i)
+    }
+    var e = this.Gabon.length - 28
+    var p = this.Gabon.filter((k, j)=> {
+        return j >= e
+    })
             var lineChartData2 = {
-                labels: this.Gabon.map(e=> {
-                    return e.date
+                labels:  p.map(i=> {
+                    return i.date
                 }),
                 datasets: [
                     {
@@ -177,33 +214,83 @@ export class HomeComponent implements OnInit {
                         borderColor: 'rgb(255, 0, 54)',
                         backgroundColor: 'rgb(255, 0, 54)',
                         fill: '1',
-                        spanGaps: true,
-                        steppedLine: 'after',
-                        lineTension:  0.000001,
+                        lineTension:  0.4,
                         //showLine: false,
-                        data: [
-                            '0', '50', '30','70','100','20','200'
-                        ]
+                        data: p.map(i=> {
+                            return i.deaths
+                        })
                     }
             ]
             };
-    
-    var chart = new Chart.Line(ctx3, {
+    var mort2 = document.getElementById('morts2')
+    new Chart.Line(mort2, {
         data: lineChartData2,
         options: {
-            plugins: {
-                filler: {
-                    propagate: true
-                }
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1
+                    }
+                }]
             }
         }
     });
+    var chart = new Chart.Line(ctx3, {
+        data: lineChartData2,
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+    //
+    var data = {
+        labels: this.Gabon.map(e=> {
+            return e.date
+        }),
+        datasets: lineChartData.datasets
+      };
+      var options = {
+        maintainAspectRatio: true,
+        scales: {
+        //   yAxes: [{
+        //     stacked: true,
+        //     gridLines: {
+        //       display: true,
+        //       color: "rgba(255,99,132,0.2)"
+        //     }
+        //   }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      };
+      var cht = document.getElementById('chart')
+      Chart.Bar(cht, {
+        options: options,
+        data: data
+      });
+    //
     var tab = []
-    for(var i=0;i< 29;i++) {
+    for(var i=1;i< 29;i++) {
         tab.push(i)
     }
+    var e = this.Gabon.length - 28
+    var p = this.Gabon.filter((k, j)=> {
+        return j >= e
+    })
     var lineChartData3 = {
-        labels: tab,
+        labels: p.map(e=> {
+            return e.date
+        }),
         datasets: [
             {
                 label: 'Nouveaux cas',
@@ -214,17 +301,27 @@ export class HomeComponent implements OnInit {
                 //steppedLine: 'after',
                 lineTension:  0.000001,
                 //showLine: false,
-                data: [
-                    '0', '50', '30','70','100','20','200','0', '50', '30','70','100','20','200','0', '50', '30','70','100','20','200','0', '50', '30','70','100','20','200',"10"
-                ]
+                data: p.map(e=> {
+                    return e.confirmed
+                })
             }
     ]
     };
-                new Chart(ctx4, {
-                    type: 'line',
-                    data: lineChartData3
-                });
+    var ev = document.getElementById('jr-evolution2')
+    new Chart.Bar(ev, {
+        data: lineChartData3,
+        options: {
+            responsive: true
+          }
+    });
+                // new Chart(ctx4, {
+                //     type: 'line',
+                //     data: lineChartData3,
+                //     options: {
+                //         responsive: true
+                //       }
+                // });
       $('.col-rate-mort').css('height', $('.col-graph-circle').height() +'px')
-      console.log('height ', $('.col-graph-circle').height())
+      // console.log('height ', $('.col-graph-circle').height())
       }
 }
