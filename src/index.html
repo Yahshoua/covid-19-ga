@@ -9,11 +9,39 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="http://covid19gabon.mitashi-otha.com/assets/virus.png">
+    <meta property="og:title" content="Covid-19 au Gabon: les chiffres en temps réel">
+    <meta property="description" content="covid-19, gabon, libreville, corona gabon, mort gabon, grippe gabon, epidemie gabon, pandemie gabon">
+    <meta property="og:description" content="suivez l'evolution du covid-19 au Gabon ici">
+    <meta property="og:image" content="http://covid19gabon.mitashi-otha.com/assets/covid.jpg">
 </head>
 
 <body class="mat-typography">
     <app-root></app-root>
+
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '2433876316712326',
+                xfbml: true,
+                version: 'v2.9'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d) {
+            var js, id = 'facebook-jssdk',
+                ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+    </script>
 </body>
 
 </html>

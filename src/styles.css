@@ -24,3 +24,19 @@ body {
         display: none !important;
     }
 }
+
+body,
+html {
+    overflow-x: hidden !important;
+}
+
+mat-tab-body {
+    background: #c5c5c509;
+}
+
+.col-graph-circle,
+.col-rate-mort,
+.col-evolution,
+.col-stat {
+    background-color: #fff;
+}

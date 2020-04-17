@@ -29,8 +29,7 @@
                             "src/assets/all.css",
                             "./node_modules/semantic-ui/dist/semantic.css",
                             "./node_modules/semantic-ui/dist/components/progress.css",
-                            "./node_modules/jq-fakeloader/dist/fakeLoader.min.css",
-                            "src/assets/pace-theme-center-simple.tmpl.css"
+                            "./node_modules/jq-fakeloader/dist/fakeLoader.min.css"
                         ],
                         "scripts": [
                             "src/assets/jquery.js",
@@ -38,8 +37,7 @@
                             "./node_modules/semantic-ui/dist/components/progress.js",
                             "./node_modules/moment/moment.js",
                             "./node_modules/moment/locale/fr.js",
-                            "./node_modules/jq-fakeloader/dist/fakeLoader.min.js",
-                            "src/assets/pace.js"
+                            "./node_modules/jq-fakeloader/dist/fakeLoader.min.js"
                         ]
                     },
                     "configurations": {

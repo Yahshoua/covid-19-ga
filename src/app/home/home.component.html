@@ -2,12 +2,18 @@
     <p class="text-cov" style="margin-left: 7px;">
         COVID 19 DONNÉES DE SÉRIES CHRONOLOGIQUES
     </p>
+    <p style="    margin-left: 7px;
+    font-size: 12px;
+    color: gray;">
+        Sources : OMS, US CDC, CCDC, ECDC, etc.
+    </p>
+    <!-- <button class="btnshare" (click)="share()">partager</button> -->
     <div class="ui cards">
         <div class="card">
             <div class="content">
                 <div class="header">CAS CONFIRME</div>
                 <div class="meta">
-                    <h3> {{data?.total_cases}} </h3>
+                    <h3> {{data?.cases}} </h3>
                 </div>
                 <div class="label"> {{maj}} </div>
                 <div class="bar" id="bar1">
@@ -18,7 +24,7 @@
             <div class="content">
                 <div class="header">MORTS</div>
                 <div class="meta">
-                    <h3>{{data?.total_deaths}}</h3>
+                    <h3>{{data?.deaths}}</h3>
                 </div>
                 <div class="label"> {{maj}}</div>
                 <div class="bar" id="bar2">
@@ -29,7 +35,7 @@
             <div class="content">
                 <div class="header">RETABLIS</div>
                 <div class="meta">
-                    <h3>{{data?.total_recovered}}</h3>
+                    <h3>{{data?.recovered}}</h3>
                 </div>
                 <div class="label"> {{maj}} </div>
                 <div class="bar" id="bar3">
@@ -40,7 +46,7 @@
             <div class="content">
                 <div class="header">CAS ACTIFS</div>
                 <div class="meta">
-                    <h3>{{data?.active_cases}}</h3>
+                    <h3>{{data?.active}}</h3>
                 </div>
                 <div class="label"> {{maj}} </div>
                 <div class="bar" id="bar4">
@@ -65,11 +71,11 @@
                         Morts <span style="background: rgb(255, 0, 54)">{{percent.morts}}%</span>
                     </div>
                     <div>
-                        Retablis <span style="background: rgba(255, 206, 86)">{{percent.retablis}}%</span>
+                        Retablis <span style="background: rgb(4, 255, 87)">{{percent.retablis}}%</span>
                     </div>
                 </div>
                 <div class="col-btn">
-                    <button class="but-custom">
+                    <button class="but-custom" (click)=" modal(1)">
                         Description
                     </button>
                 </div>
@@ -86,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-btns">
-                    <button class="but-custom">
+                    <button class="but-custom" (click)=" modal(2)">
                         Description
                     </button>
                 </div>
@@ -99,7 +105,7 @@
                 <div style="display: flex;padding: 0;">
                     <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;flex: 1">Dernière mise-à-jour le {{maj}}</span>
                     <div class="col-btns" style="position: initial;padding: 0">
-                        <button class="but-custom">
+                        <button class="but-custom" (click)=" modal(3)">
                             Description
                         </button>
                     </div>
@@ -116,7 +122,7 @@
         <div class="12 wide column col-evolution" style="padding-top: 5px">
             <div>
                 <div style="display: flex;padding: 0;">
-                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;">Nouveaux morts les derniers 28 jours</span>
+                    <h2 style="margin: 0">COVID 19: DONNEES DU GABON</h2> <span style="line-height: 33px;padding-left: 1%;width: 50%;">Nouveaux decès les derniers 28 jours</span>
                 </div>
                 <div class="chart-container" style="position: relative">
                     <canvas class="mort1" id="morts" width="900px" height="200px"></canvas>
@@ -153,7 +159,7 @@
                     <div style="display: flex;">
                         <h3 style="flex: 1;">COVID 19: GABON: Nouveaux cas </h3>
                         <div class="col-btns" style="position: initial;padding: 0;margin-right: 10px;">
-                            <button class="but-custom">
+                            <button class="but-custom" (click)=" modal(5)">
                             Description
                         </button>
                         </div>
@@ -168,5 +174,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="ui modal">
+    <div class="header">Description</div>
+    <div class="content">
+        <p>{{text}}</p>
     </div>
 </div>

@@ -32,13 +32,14 @@ export class AppComponent implements OnInit {
   onResize(event) {
     $('.col-edit').css('height', window.innerHeight - $('mat-toolbar').height() + 'px')
     event.target.innerWidth;
+    console.log('windwo ', window)
     if(window.innerHeight > window.innerWidth){
      // console.log("Please use Landscape!");
       $("body, html").css("overflow", "hidden")
-      $('.popup').css({'display':'block', 'bottom': 0, 'top': 0, 'left': 0, 'right': 0, 'height': window.innerHeight + 'px'})
+      $('.popup').css({'display':'block', 'bottom': 0, 'top': 0, 'left': 0, 'right': 0, 'height': window.outerHeight + 'px'})
   } else {
     $('.popup').css('display', 'none')
-    $("body, html").css("overflow", "auto")
+    $("body, html").css({"overflow-y":"auto", "overflow-x":"hidden"})
   }
   $('.col-edit').css('height', window.innerHeight - ($('mat-toolbar').height()+ $('.mat-tab-label-container').height() + $('footer').height()) + 'px')
   }
